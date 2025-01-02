@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Users List</h2>
+
+<div ng-controller="UsersListController">
+    <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>UserID</th>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>password</th>
+                <th>MobileNumber</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users">
+                <td>{{user.UserID}}</td>
+                <td>
+                    <img ng-src="{{user.Photo}}"
+                         alt="Photo"
+                         style="width: 45px; height: 45px;"
+                         class="rounded-circle" />
+                </td>
+                <td>{{user.Name}}</td>
+                <td>{{user.Email}}</td>
+                <td>{{user.password}}</td>
+                <td>{{user.MobileNumber}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+
+
