@@ -46,7 +46,8 @@ Admin can upload an Excel file containing user data.
 The system reads the data and populates the users' information into the database.
 Password generation occurs automatically during import.
 Images from the Excel file are ignored as per the task requirements.
-The import process has been optimized to complete within two minutes for handling large datasets.
+The import process has been optimized .
+
 Setup Instructions
 To run the project locally, follow these steps:
 
@@ -92,23 +93,29 @@ Start the application using Visual Studio or by running:
 bash
 Copy code
 dotnet run
-Access the website through your browser at http://localhost:5000.
-API Endpoints
 The following API endpoints have been created and tested using Postman:
 
 POST /api/login: Authenticates the admin and returns a token.
+
 GET /api/users: Fetches a list of all users in the system.
+
 POST /api/users: Adds a new user.
+
 POST /api/import: Handles the import of users from an Excel file.
+
 Testing with Postman:
+
 The API has been thoroughly tested using Postman.
+
 Ensure the Authorization header is set with the correct token when making requests.
+
 Performance Optimization
-The Excel Import Page has been optimized to ensure that the process of importing one million users is completed within two minutes.
+
+
 The import process only handles textual data and excludes images to maintain performance.
+
 Conclusion
 This web application provides a simple interface for managing users, including manual additions and mass imports via Excel. The system is optimized for handling large datasets, and all functionalities have been rigorously tested to meet the requirements of the task.
 
-Additional Notes:
-Security Considerations: Ensure that all user passwords are hashed and salted before being stored in the database.
-Performance: Importing large datasets from Excel can be resource-intensive. Optimizations have been applied to ensure the process completes within the required time.
+
+
