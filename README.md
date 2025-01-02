@@ -109,7 +109,7 @@ The API has been thoroughly tested using Postman.
 
 Ensure the Authorization header is set with the correct token when making requests.
 
-Performance Optimization
+Performance Optimization:
 
 
 The import process only handles textual data and excludes images to maintain performance.
