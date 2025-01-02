@@ -61,18 +61,18 @@ namespace Task_JODBE.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Handle image upload if there is a file
+
                 if (userImage != null && userImage.ContentLength > 0)
                 {
-                    // Generate a unique file name for the image (optional)
+
                     var fileName = Path.GetFileName(userImage.FileName);
                     var filePath = Path.Combine(Server.MapPath("~/Content/Images"), fileName);
-                    System.Diagnostics.Debug.WriteLine("File path: " + filePath);  // Add this line to see the full path
+                    System.Diagnostics.Debug.WriteLine("File path: " + filePath);  
 
-                    // Ensure the directory exists
+
                     if (!Directory.Exists(Path.GetDirectoryName(filePath)))
                     {
-                        Directory.CreateDirectory(Path.GetDirectoryName(filePath));  // Create the folder if it doesn't exist
+                        Directory.CreateDirectory(Path.GetDirectoryName(filePath)); 
                     }
                     try
                     {
@@ -81,21 +81,21 @@ namespace Task_JODBE.Controllers
                     }
                     catch (Exception ex)
                     {
-                        // Log the error or return the error message
+
                         System.Diagnostics.Debug.WriteLine("Error saving image: " + ex.Message);
                         return Json(new { success = false, message = "Error in saving image" });
                     }
-                    // Save the image path in the database (only the relative path, not full file path)
+
                     user.Photo = "/Content/Images/" + fileName;
                 }
 
-                // Password hashing and other logic
+
                 user.passwordHash = HashPassword(user.password);
                 user.passwordSalt = GenerateSalt();
                 user.CreatedAt = DateTime.Now;
                 user.UpdatedAt = DateTime.Now;
 
-                // Save user to the database
+
                 _dbContext.Users.Add(user);
                 _dbContext.SaveChanges();
 
@@ -108,12 +108,12 @@ namespace Task_JODBE.Controllers
 
         private byte[] HashPassword(string password)
         {
-            return new byte[0];  // Placeholder, implement your hashing logic here
+            return new byte[0];  
         }
 
         private byte[] GenerateSalt()
         {
-            return new byte[0];  // Placeholder, implement your salt generation logic here
+            return new byte[0];  
         }
 
         public ActionResult ImportExcel()
@@ -124,8 +124,8 @@ namespace Task_JODBE.Controllers
         [HttpPost]
         public async Task<JsonResult> ImportExcel(HttpPostedFileBase file)
         {
-            var stopwatch = new Stopwatch(); // Initialize stopwatch to measure time
-            stopwatch.Start(); // Start measuring time
+            var stopwatch = new Stopwatch(); 
+            stopwatch.Start(); 
 
             if (file != null && file.ContentLength > 0)
             {
@@ -133,7 +133,7 @@ namespace Task_JODBE.Controllers
 
                 try
                 {
-                    // Make sure the file is of type .xlsx
+
                     if (file.ContentType != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                     {
                         return Json(new { success = false, message = "Invalid file format. Please upload an Excel (.xlsx) file." });
@@ -144,26 +144,26 @@ namespace Task_JODBE.Controllers
                         var worksheet = package.Workbook.Worksheets.FirstOrDefault();
                         if (worksheet != null)
                         {
-                            var startRow = 2; // Assuming row 1 is the header
+                            var startRow = 2; 
                             var endRow = worksheet.Dimension.End.Row;
 
-                            // Process rows
+
                             for (int row = startRow; row <= endRow; row++)
                             {
-                                // Create a new user from the current row
+
                                 var user = new User
                                 {
-                                    Name = worksheet.Cells[row, 2].GetValue<string>(), // Name in column 2
-                                    Email = worksheet.Cells[row, 3].GetValue<string>(), // Email in column 3
-                                    MobileNumber = worksheet.Cells[row, 4].GetValue<string>(), // MobileNo in column 4
-                                    password = "123456" // Set default password to "123456"
+                                    Name = worksheet.Cells[row, 2].GetValue<string>(),
+                                    Email = worksheet.Cells[row, 3].GetValue<string>(), 
+                                    MobileNumber = worksheet.Cells[row, 4].GetValue<string>(), 
+                                    password = "123456" 
                                 };
 
-                                // Add user to the list
+
                                 users.Add(user);
                             }
 
-                            // Perform bulk insert using Z.EntityFramework.Extensions
+
                             await Task.Run(() =>
                             {
                                 _dbContext.BulkInsert(users);

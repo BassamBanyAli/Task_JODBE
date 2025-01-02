@@ -3,55 +3,128 @@
 <head>
     <meta charset="utf-8" />
     <title>Login</title>
-
-    <!-- CSRF Token Meta Tag -->
     <meta name="csrf-token" content="@Html.AntiForgeryToken()" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script> <!-- Include AngularJS -->
+        .card {
+            border: none;
+            border-radius: 1.25rem; /* Slightly increased border radius */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Increased shadow */
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #6c757d;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 15px 20px; /* Increased button size */
+            font-size: 1.25rem; /* Larger font for the button */
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: .5em;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: .5em;
+        }
+
+        .hero-image {
+            background: url('https://pics.craiyon.com/2023-10-13/05835c527e3b4aab988da80be04526e7.webp') center/cover no-repeat;
+            border-top-left-radius: 1.25rem;
+            border-bottom-left-radius: 1.25rem;
+            height: 100%; /* Ensure it covers the full height */
+        }
+
+        .card-body {
+            padding: 3rem; /* Increased padding for more space */
+        }
+
+        h3.mb-4 {
+            font-size: 2rem; /* Larger title */
+            font-weight: bold;
+            color: #333;
+        }
+
+        .alert-danger {
+            font-size: 1rem;
+            padding: 15px;
+        }
+
+        /* Make sure the card adjusts based on screen size */
+        .col-md-8, .col-lg-6 {
+            max-width: 100%;
+        }
+
+        /* Adjusted for larger screens */
+      
+        }
+    </style>
 </head>
 <body>
-
     <section class="vh-100 d-flex align-items-center justify-content-center">
-        <div class="card">
-            <div class="card-body d-flex">
-                <div class="col-md-6 d-flex align-items-center">
-                    @*<img src="image-url-here" alt="Login image">*@ <!-- You can add an image here if necessary -->
-                </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card">
+                        <div class="row g-0">
+                            <div class="col-md-6 hero-image"></div>
 
-                <div class="col-md-6" ng-controller="LoginController">
-                    <form name="loginForm" ng-submit="login()">
-                        <div class="form-outline mb-4">
-                            <input type="email" class="form-control form-control-lg" ng-model="adminUser.Email" placeholder="Email address" required />
-                        </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h3 class="mb-4 text-center">Sign In</h3>
 
-                        <div class="form-outline mb-4">
-                            <input type="password" class="form-control form-control-lg" ng-model="adminUser.password" placeholder="Password" required />
-                        </div>
+                                    <form name="loginForm" ng-controller="LoginController" ng-submit="login()">
+                                        <div class="form-outline mb-4">
+                                            <input type="email" class="form-control" ng-model="adminUser.Email" placeholder="Email address" required />
+                                        </div>
 
-                        <div class="d-flex justify-content-around align-items-center mb-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="form1Example3" checked />
-                                <label class="form-check-label" for="form1Example3"> Remember me </label>
+                                        <div class="form-outline mb-4">
+                                            <input type="password" class="form-control" ng-model="adminUser.password" placeholder="Password" required />
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Sign In</button>
+                                    </form>
+
+                                    <div ng-if="errorMessage" class="alert alert-danger mt-3" role="alert">
+                                        {{ errorMessage }}
+                                    </div>
+                                </div>
                             </div>
-                            <a href="#!">Forgot password?</a>
                         </div>
-
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign In</button>
-
-                        <div class="divider d-flex align-items-center my-4">
-                            <p class="fw-bold mt-2 pt-1 mb-0">
-                                Don't have an account? <a href="" class="link-primary">Register</a>
-                            </p>
-                        </div>
-                    </form>
-
-                    <div ng-if="errorMessage" class="alert alert-danger" role="alert">
-                        {{ errorMessage }}
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 </body>
 </html>

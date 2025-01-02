@@ -13,17 +13,17 @@ public class LoginController : Controller
         _dbContext = new UserManagementDBEntities();
     }
 
-    // GET: Login/Index
+
     public ActionResult Index()
     {
         if (Request.IsAuthenticated)
         {
-            return RedirectToAction("Index", "Home"); // Redirect to Home if already logged in
+            return RedirectToAction("Index", "UsersList");
         }
         return View();
     }
 
-    // POST: Login/Index
+ 
     [HttpPost]
     [AllowAnonymous]
     public JsonResult Index([Bind(Include = "Email, password")] AdminUser adminUser)
@@ -35,7 +35,7 @@ public class LoginController : Controller
                 var user = _dbContext.AdminUsers.SingleOrDefault(u => u.Email == adminUser.Email);
                 if (user != null && user.password == adminUser.password)
                 {
-                    // Create authentication ticket
+
                     FormsAuthentication.SetAuthCookie(user.Email, true);
                     return Json(new { isLoggedIn = true, message = "Login successful" });
                 }
@@ -53,10 +53,10 @@ public class LoginController : Controller
     }
     public ActionResult Logout()
     {
-        // Clear the authentication cookie
+
         System.Web.Security.FormsAuthentication.SignOut();
 
-        // Redirect to the login page or any other page you desire
+
         return RedirectToAction("Index", "Login");
     }
 }

@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark" style="background-color: #003366;">
         <div class="container">
             @Html.ActionLink("JODBE", "Index", "UsersList", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
@@ -22,7 +22,6 @@
                     <li>@Html.ActionLink("Import Excel", "ImportExcel", "UsersList", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
 
-                <!-- Conditionally display the Logout link if the user is authenticated -->
                 @if (User.Identity.IsAuthenticated)
                 {
                     <form action="@Url.Action("Logout", "Login")" method="post" class="d-inline">
@@ -36,9 +35,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -49,7 +46,10 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="~/Scripts/app/app.js"></script>
     <script src="~/Scripts/app/directives.js"></script>
-    <script src="~/Scripts/app/controllers/controllers.js"></script>
+    <script src="~/Scripts/app/controllers/LoginController.js"></script>
+    <script src="~/Scripts/app/controllers/UsersListController.js"></script>
+    <script src="~/Scripts/app/controllers/AddUserController.js"></script>
+    <script src="~/Scripts/app/controllers/UserImportController.js"></script>
     <script src="~/Scripts/jquery.js"></script>
 </body>
 </html>
